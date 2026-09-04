@@ -60,3 +60,13 @@ If it proves to be successful I will attempt to roll it out in phases.
 
 - If Section rollout was successful, hold that section for a week or two, documenting any unfamiliar behavior.
 - After 1-2 weeks of success, follow a similar procedure, increasing sections in an exponential form.
+
+## Getting Started
+
+Current Canvas API communication uses a `User-Generated Access Token` instead of proper [OAuth2](https://developerdocs.instructure.com/services/canvas/oauth2/file.oauth).
+
+Information for how to generate tokens can be found [here](https://developerdocs.instructure.com/services/canvas/oauth2/file.oauth#manual-token-generation)
+
+For proper functionality, a `.env` file must be created at the root of the project, populated with `CANVAS_DEV_API_TOKEN`
+
+`Manual Token Generation` should be updated to `OAuth2` if application is ever deployed.

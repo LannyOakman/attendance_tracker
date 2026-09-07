@@ -1,28 +1,15 @@
-import 'dart:convert';
-
 import 'package:attendance/features/courses/models/course.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+import 'package:attendance/core/api/canvas_service.dart';
 
-const String ucCanvasUrl = "uc.instructure.com";
-const String taEnrollmentId = "5022";
-final String canvasApiToken = dotenv.get('CANVAS_DEV_API_TOKEN');
+const taEnrollmentId = "5022";
 
 Future<List<Course>> getCourses() async {
-  final url = Uri.https(ucCanvasUrl, "/api/v1/courses", {
-    "enrollment_role_id": taEnrollmentId,
-  });
+  final canvasService = CanvasService();
 
-  final response = await http.get(
-    url,
-    headers: {"Authorization": "Bearer $canvasApiToken", "Accept": "*/*"},
+  final body = await canvasService.get(
+    "/api/v1/courses",
+    queryParams: {"enrollment_role_id": taEnrollmentId},
   );
-
-  if (response.statusCode != 200) {
-    throw Exception("uh oh");
-  }
-
-  final List body = jsonDecode(response.body);
 
   final List<Course> courses = [];
 

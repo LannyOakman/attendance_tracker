@@ -1,6 +1,8 @@
 import 'package:attendance/features/courses/data/course_api_client.dart';
 import 'package:attendance/features/courses/models/course.dart';
 import 'package:attendance/features/courses/presentation/course_widget.dart';
+import 'package:attendance/features/assignments/presentation/pages/assignment_page.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Select Course for Attendance"),
+        title: Text("Select Course"),
       ),
       body: Center(
         child: Card(
@@ -45,7 +47,15 @@ class _HomePageState extends State<HomePage> {
                 // TODO: make this sort by course createdAt
                 return ListView.builder(
                   itemCount: courses.length,
-                  itemBuilder: (context, i) => CourseWidget(course: courses[i]),
+                  itemBuilder: (context, i) => CourseWidget(
+                    course: courses[i],
+                    onTap: (Course c) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AssignmentPage(course: c),
+                      ),
+                    ),
+                  ),
                 );
               }
 
